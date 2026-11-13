@@ -1,257 +1,392 @@
+/* Interacciones del formulario de Consulta Municipal (prototipo). */
+(() => {
+"use strict";
 
-const form = document.getElementById("consultaForm");
-const panels = document.querySelectorAll(".wizard-step");
-const indicators = document.querySelectorAll(".step");
-const btnAnterior = document.getElementById("anterior");
-const btnSiguiente = document.getElementById("siguiente");
-const btnEnviar = document.getElementById("enviar");
-const success = document.getElementById("success");
-const layout = document.getElementById("contentLayout");
+    const get = id => document.getElementById(id);
+    const panels = [...document.querySelectorAll(".panel")];
+    const steps = [...document.querySelectorAll(".step")];
 
-const mobileQuery = window.matchMedia("(max-width: 768px)");
-let currentStep = 0;
+    let currentStep = 0;
 
-const get = id => document.getElementById(id);
+    const requiredPersonal = ["cedula", "nombre", "correo"];
+    const requiredConsulta = ["tema", "pregunta"];
 
-function isValid(id) {
-  const input = get(id);
-  const value = input.value.trim();
+    // VALIDACIONES
 
-  let valid = value.length > 0;
+    function checkField(id) {
+      const input = get(id);
+      const value = input.value.trim();
 
-  if (id === "correo") {
-    valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-  }
+      let valid = value.length > 0;
 
-  const field = input.closest(".field");
-  field.classList.toggle("invalid", !valid);
-  input.setAttribute("aria-invalid", String(!valid));
+      if (id === "correo") {
+        valid = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
+      }
 
-  return valid;
-}
+      input.closest(".field").classList.toggle("invalid", !valid);
+      input.setAttribute("aria-invalid", String(!valid));
 
-function validateFields(ids) {
-  let firstInvalid = null;
-
-  ids.forEach(id => {
-    if (!isValid(id) && !firstInvalid) {
-      firstInvalid = get(id);
-    }
-  });
-
-  if (firstInvalid) {
-    firstInvalid.focus();
-    return false;
-  }
-
-  return true;
-}
-
-function validateStep() {
-  if (currentStep === 0) {
-    return validateFields(["cedula", "nombre", "correo"]);
-  }
-
-  if (currentStep === 1) {
-    return validateFields(["tema", "pregunta"]);
-  }
-
-  return true;
-}
-
-
-function showStep() {
-  // Mostrar únicamente la sección correspondiente
-  panels.forEach((panel, index) => {
-    panel.classList.toggle("active", index === currentStep);
-  });
-
-  // Actualizar los indicadores de progreso
-  indicators.forEach((indicator, index) => {
-    indicator.classList.toggle("active", index === currentStep);
-    indicator.classList.toggle("completed", index < currentStep);
-  });
-
-  // Botones visibles según el paso actual
-  btnAnterior.style.display =
-    currentStep > 0 ? "block" : "none";
-
-  btnSiguiente.style.display =
-    currentStep < 2 ? "block" : "none";
-
-  btnEnviar.style.display =
-    currentStep === 2 ? "block" : "none";
-
-  // Preparar el resumen del último paso
-  if (currentStep === 2) {
-    renderSummary();
-  }
-}
-
-
-function renderSummary() {
-  const summary = get("resumen");
-
-  const rows = [
-    ["Nombre", get("nombre").value],
-    ["Identificación", get("cedula").value],
-    ["Correo", get("correo").value],
-    ["Teléfono", get("telefono").value || "No indicado"],
-    ["Tema", get("tema").value],
-    ["Consulta", get("pregunta").value],
-    [
-      "Archivo",
-      get("archivo").files[0]?.name || "Sin archivo"
-    ]
-  ];
-
-  summary.replaceChildren();
-
-  rows.forEach(([label, value]) => {
-    const row = document.createElement("div");
-    const bold = document.createElement("strong");
-    const text = document.createElement("span");
-
-    bold.textContent = label + ": ";
-    text.textContent = value;
-
-    row.append(bold, text);
-    summary.append(row);
-  });
-}
-
-btnSiguiente.addEventListener("click", () => {
-  if (!validateStep()) return;
-
-  currentStep = Math.min(currentStep + 1, 2);
-  showStep();
-});
-
-btnAnterior.addEventListener("click", () => {
-  currentStep = Math.max(currentStep - 1, 0);
-  showStep();
-});
-
-get("pregunta").addEventListener("input", event => {
-  get("contador").textContent = event.target.value.length;
-});
-
-get("archivo").addEventListener("change", event => {
-  const file = event.target.files[0];
-  const info = get("archivoInfo");
-
-  if (!file) {
-    info.textContent = "PDF, JPG o PNG. Máximo de prueba: 5 MB.";
-    return;
-  }
-
-  const types = [
-    "application/pdf",
-    "image/jpeg",
-    "image/png"
-  ];
-
-  if (!types.includes(file.type) || file.size > 5 * 1024 * 1024) {
-    info.textContent = "Formato no permitido o archivo mayor a 5 MB.";
-    event.target.value = "";
-    return;
-  }
-
-  info.textContent = "Archivo seleccionado: " + file.name;
-});
-
-
-form.addEventListener("submit", event => {
-  event.preventDefault();
-
-  const valid = validateFields([
-    "cedula",
-    "nombre",
-    "correo",
-    "tema",
-    "pregunta"
-  ]);
-
-  if (!valid) {
-    // Identificar si el error está en el primer paso
-    const personalFields = ["cedula", "nombre", "correo"];
-
-    const hasPersonalErrors = personalFields.some(id => {
-      return get(id)
-        .closest(".field")
-        .classList.contains("invalid");
-    });
-
-    // Regresar al paso que contiene el error
-    currentStep = hasPersonalErrors ? 0 : 1;
-
-    showStep();
-
-    // Enfocar el primer campo incorrecto que esté visible
-    const firstInvalid = panels[currentStep].querySelector(
-      ".field.invalid input, " +
-      ".field.invalid select, " +
-      ".field.invalid textarea"
-    );
-
-    if (firstInvalid) {
-      firstInvalid.focus();
+      return valid;
     }
 
-    return;
-  }
+    function validateFields(ids) {
+      let firstInvalid = null;
 
-  // Simular envío correcto
-  layout.style.display = "none";
-  get("stepper").style.display = "none";
-  success.hidden = false;
+      ids.forEach(id => {
+        if (!checkField(id) && !firstInvalid) {
+          firstInvalid = get(id);
+        }
+      });
 
-  success.scrollIntoView({
-    behavior: "smooth",
-    block: "start"
-  });
-});
+      if (firstInvalid && firstInvalid.getClientRects().length) {
+        firstInvalid.focus();
+      }
 
-get("nuevaConsulta").addEventListener("click", () => {
-  form.reset();
-  currentStep = 0;
+      return !firstInvalid;
+    }
 
-  document.querySelectorAll(".field").forEach(field => {
-    field.classList.remove("invalid");
-  });
+    // MOSTRAR PASOS
 
-  get("contador").textContent = "0";
-  get("archivoInfo").textContent =
-    "PDF, JPG o PNG. Máximo de prueba: 5 MB.";
+    function renderStep() {
+      panels.forEach((panel, index) => {
+        panel.classList.toggle("active", index === currentStep);
+        panel.setAttribute("aria-hidden", String(index !== currentStep));
+      });
 
-  success.hidden = true;
-  layout.style.display = "";
-  get("stepper").style.display = "";
+      steps.forEach((step, index) => {
+        step.classList.toggle("active", index === currentStep);
+        step.classList.toggle("done", index < currentStep);
+      });
 
-  showStep();
-});
+      get("prev").hidden = currentStep === 0;
+      get("next").hidden = currentStep === 3;
+      get("send").hidden = currentStep !== 3;
 
-const toggle = get("menuToggle");
-const nav = get("nav");
+      get("next").textContent =
+        currentStep === 0 ? "Comenzar consulta →" : "Siguiente →";
 
-toggle.addEventListener("click", () => {
-  const open = nav.classList.toggle("open");
-  toggle.setAttribute("aria-expanded", String(open));
-});
+      get("progressFill").style.width =
+        ((currentStep + 1) * 25) + "%";
 
-document.querySelectorAll(".survey-options button")
-  .forEach(button => {
-    button.addEventListener("click", () => {
-      document.querySelectorAll(".survey-options button")
-        .forEach(item => item.classList.remove("selected"));
+      if (currentStep === 3) {
+        generateSummary();
+      }
+    }
 
-      button.classList.add("selected");
+    function goToStep(step) {
+      currentStep = Math.max(0, Math.min(3, step));
+      renderStep();
 
-      get("surveyMessage").textContent =
-        "Seleccionaste: " + button.textContent +
-        ". Valoración simulada, sin almacenamiento.";
+      get("stepper").scrollIntoView({
+        behavior: "smooth",
+        block: "start"
+      });
+    }
+
+    // SIGUIENTE Y ANTERIOR
+
+    get("next").addEventListener("click", () => {
+      if (currentStep === 1 && !validateFields(requiredPersonal)) return;
+      if (currentStep === 2 && !validateFields(requiredConsulta)) return;
+
+      goToStep(currentStep + 1);
     });
-  });
 
+    get("prev").addEventListener("click", () => {
+      goToStep(currentStep - 1);
+    });
 
-showStep();
+    // RESUMEN
+
+    function generateSummary() {
+      const groups = [
+        {
+          title: "Datos personales",
+          step: 1,
+          rows: [
+            ["Nombre", get("nombre").value],
+            ["Tipo de identificación", get("tipo").value],
+            ["Identificación", get("cedula").value]
+          ]
+        },
+        {
+          title: "Contacto",
+          step: 1,
+          rows: [
+            ["Correo", get("correo").value],
+            ["Teléfono", get("telefono").value || "No indicado"]
+          ]
+        },
+        {
+          title: "Consulta",
+          step: 2,
+          rows: [
+            ["Tema", get("tema").value],
+            ["Pregunta", get("pregunta").value],
+            ["Adjunto", get("archivo").files[0]?.name || "Sin archivo"]
+          ]
+        }
+      ];
+
+      get("resumen").replaceChildren();
+
+      groups.forEach(groupData => {
+        const group = document.createElement("div");
+        group.className = "summary-block";
+
+        const title = document.createElement("h3");
+        title.textContent = groupData.title;
+        group.append(title);
+
+        groupData.rows.forEach(([label, value]) => {
+          const p = document.createElement("p");
+          const bold = document.createElement("b");
+          bold.textContent = label + ": ";
+          p.append(bold, document.createTextNode(value));
+          group.append(p);
+        });
+
+        const edit = document.createElement("button");
+        edit.type = "button";
+        edit.className = "edit";
+        edit.textContent = "✎ Editar";
+        edit.addEventListener("click", () => goToStep(groupData.step));
+
+        group.append(edit);
+        get("resumen").append(group);
+      });
+    }
+
+    // ENVÍO SIMULADO
+
+    get("form").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const validPersonal = validateFields(requiredPersonal);
+      const validConsulta = validateFields(requiredConsulta);
+
+      if (!validPersonal || !validConsulta) {
+        goToStep(!validPersonal ? 1 : 2);
+
+        const firstError = panels[currentStep].querySelector(
+          ".invalid input, .invalid select, .invalid textarea"
+        );
+
+        if (firstError) firstError.focus();
+        return;
+      }
+
+      get("form").hidden = true;
+      get("stepper").hidden = true;
+      get("progress").hidden = true;
+      get("success").hidden = false;
+
+      get("success").scrollIntoView({ behavior: "smooth" });
+    });
+
+    // REINICIAR
+
+    get("restart").addEventListener("click", () => {
+      get("form").reset();
+
+      document.querySelectorAll(".field").forEach(field => {
+        field.classList.remove("invalid");
+      });
+
+      document.querySelectorAll("[aria-invalid]").forEach(input => {
+        input.removeAttribute("aria-invalid");
+      });
+
+      get("counter").textContent = "0";
+      get("archivoInfo").textContent =
+        "PDF, JPG o PNG. Máximo ilustrativo: 5 MB.";
+      get("archivoInfo").style.color = "";
+
+      get("form").hidden = false;
+      get("stepper").hidden = false;
+      get("progress").hidden = false;
+      get("success").hidden = true;
+
+      goToStep(0);
+    });
+
+    // ACTUALIZAR ERRORES
+
+    [...requiredPersonal, ...requiredConsulta].forEach(id => {
+      ["input", "change"].forEach(eventName => {
+        get(id).addEventListener(eventName, () => {
+          if (get(id).closest(".field").classList.contains("invalid")) {
+            checkField(id);
+          }
+        });
+      });
+    });
+
+    // CONTADOR DE CARACTERES
+
+    get("pregunta").addEventListener("input", event => {
+      get("counter").textContent = event.target.value.length;
+    });
+
+    // ARCHIVOS ADJUNTOS
+
+    get("archivo").addEventListener("change", event => {
+      const file = event.target.files[0];
+      const info = get("archivoInfo");
+
+      if (!file) {
+        info.textContent = "PDF, JPG o PNG. Máximo ilustrativo: 5 MB.";
+        return;
+      }
+
+      const allowedTypes = [
+        "application/pdf",
+        "image/jpeg",
+        "image/png"
+      ];
+
+      if (!allowedTypes.includes(file.type) || file.size > 5 * 1024 * 1024) {
+        info.textContent = "Formato no admitido o tamaño mayor de 5 MB.";
+        info.style.color = "#b62222";
+        event.target.value = "";
+        return;
+      }
+
+      info.textContent = "Seleccionado: " + file.name;
+      info.style.color = "#217346";
+    });
+
+    // MENÚ MÓVIL
+
+    get("menu").addEventListener("click", () => {
+      const open = get("nav").classList.toggle("open");
+      get("menu").setAttribute("aria-expanded", String(open));
+    });
+
+    // ENCUESTA
+
+    const votes = {
+      Excelente: 0,
+      Buena: 0,
+      Regular: 0,
+      Mala: 0
+    };
+
+    let voted = false;
+
+    function drawResults() {
+      const total = Object.values(votes).reduce((a, b) => a + b, 0);
+      get("resultRows").replaceChildren();
+
+      Object.entries(votes).forEach(([name, count]) => {
+        const percent = total ? Math.round(count * 100 / total) : 0;
+
+        const row = document.createElement("div");
+        row.className = "result-row";
+
+        const label = document.createElement("div");
+        const text = document.createElement("span");
+        const value = document.createElement("span");
+
+        text.textContent = name;
+        value.textContent = `${percent}% (${count})`;
+        label.append(text, value);
+
+        const track = document.createElement("div");
+        track.className = "track";
+
+        const fill = document.createElement("span");
+        fill.style.width = percent + "%";
+
+        track.append(fill);
+        row.append(label, track);
+        get("resultRows").append(row);
+      });
+
+      get("results").hidden = false;
+    }
+
+    get("vote").addEventListener("click", () => {
+      const selected = document.querySelector(
+        'input[name="opinion"]:checked'
+      );
+
+      if (!selected) {
+        get("voteStatus").textContent = "Seleccioná una opción primero.";
+        return;
+      }
+
+      if (voted) {
+        get("voteStatus").textContent =
+          "Ya votaste durante esta demostración.";
+        return;
+      }
+
+      votes[selected.value]++;
+      voted = true;
+
+      get("voteStatus").textContent = "¡Gracias por tu opinión!";
+      drawResults();
+    });
+
+    get("showResults").addEventListener("click", () => {
+      if (get("results").hidden) {
+        drawResults();
+      } else {
+        get("results").hidden = true;
+      }
+    });
+
+    // CHAT FLOTANTE
+
+    function setChatOpen(open) {
+      get("chat").classList.toggle("open", open);
+      get("chatToggle").setAttribute("aria-expanded", String(open));
+
+      if (open) get("chatInput").focus();
+    }
+
+    get("chatToggle").addEventListener("click", () => {
+      setChatOpen(!get("chat").classList.contains("open"));
+    });
+
+    get("chatClose").addEventListener("click", () => {
+      setChatOpen(false);
+    });
+
+    function addMessage(text, mine = false) {
+      const div = document.createElement("div");
+      div.className = "message" + (mine ? " mine" : "");
+      div.textContent = text;
+      get("messages").append(div);
+      get("messages").scrollTop = get("messages").scrollHeight;
+    }
+
+    get("chatForm").addEventListener("submit", event => {
+      event.preventDefault();
+
+      const text = get("chatInput").value.trim();
+      if (!text) return;
+
+      addMessage(text, true);
+      get("chatInput").value = "";
+
+      const question = text.toLowerCase();
+
+      let response;
+
+      if (question.includes("horario")) {
+        response = "El horario ilustrado es de lunes a viernes, de 8 a. m. a 4 p. m.";
+      } else if (question.includes("teléfono") || question.includes("telefono")) {
+        response = "El número mostrado es 2666-0169.";
+      } else if (question.includes("consulta") || question.includes("paso")) {
+        response = "El formulario tiene cuatro etapas: información, datos, consulta y confirmación.";
+      } else {
+        response = "Soy un asistente de demostración. Puedo explicar los pasos del formulario y los datos de contacto.";
+      }
+
+      addMessage(response);
+    });
+
+    renderStep();
+})();
