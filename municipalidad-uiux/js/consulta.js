@@ -8,7 +8,7 @@
 
     let currentStep = 0;
 
-    const requiredPersonal = ["cedula", "nombre", "correo"];
+    const requiredPersonal = ["nombre", "correo"];
     const requiredConsulta = ["tema", "pregunta"];
 
     // VALIDACIONES
@@ -86,9 +86,7 @@
     // SIGUIENTE Y ANTERIOR
 
     get("next").addEventListener("click", () => {
-      if (currentStep === 1 && !validateFields(requiredPersonal)) return;
-      if (currentStep === 2 && !validateFields(requiredConsulta)) return;
-
+      // En el prototipo se permite avanzar aunque los datos estén vacíos.
       goToStep(currentStep + 1);
     });
 
@@ -104,16 +102,14 @@
           title: "Datos personales",
           step: 1,
           rows: [
-            ["Nombre", get("nombre").value],
-            ["Tipo de identificación", get("tipo").value],
-            ["Identificación", get("cedula").value]
+            ["Nombre", get("nombre").value.trim() || "No indicado"]
           ]
         },
         {
           title: "Contacto",
           step: 1,
           rows: [
-            ["Correo", get("correo").value],
+            ["Correo", get("correo").value.trim() || "No indicado"],
             ["Teléfono", get("telefono").value || "No indicado"]
           ]
         },
@@ -121,8 +117,8 @@
           title: "Consulta",
           step: 2,
           rows: [
-            ["Tema", get("tema").value],
-            ["Pregunta", get("pregunta").value],
+            ["Tema", get("tema").value || "No seleccionado"],
+            ["Pregunta", get("pregunta").value.trim() || "No indicada"],
             ["Adjunto", get("archivo").files[0]?.name || "Sin archivo"]
           ]
         }
@@ -162,19 +158,7 @@
     get("form").addEventListener("submit", event => {
       event.preventDefault();
 
-      const validPersonal = validateFields(requiredPersonal);
-      const validConsulta = validateFields(requiredConsulta);
-
-      if (!validPersonal || !validConsulta) {
-        goToStep(!validPersonal ? 1 : 2);
-
-        const firstError = panels[currentStep].querySelector(
-          ".invalid input, .invalid select, .invalid textarea"
-        );
-
-        if (firstError) firstError.focus();
-        return;
-      }
+      // Envío de ejemplo: sin bloqueo por campos pendientes.
 
       get("form").hidden = true;
       get("stepper").hidden = true;
