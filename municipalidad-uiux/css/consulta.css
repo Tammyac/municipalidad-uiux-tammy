@@ -1267,3 +1267,28 @@ body { background: var(--bg); }
 .actions { background:#fcfdff; border-top:1px solid #dbe4eb; }
 .actions .btn[hidden],.stepper[hidden],.progress[hidden],.wizard[hidden],.success[hidden] { display:none!important; }
 @media(max-width:700px) { .panel { padding:22px 18px; } .container .layout { gap:16px; } }
+
+/* Jerarquía de los contenedores y pie institucional */
+.container .stepper { border:1.5px solid #bfd4e4; border-bottom:0; }
+.container .wizard { border:1.5px solid #bfd4e4; }
+.container .side { border:1.5px solid #e1c56a; border-top:4px solid #ffd200; }
+.container .survey { border:1.5px solid #bfd4e4; border-radius:16px; overflow:hidden; }
+.container .success { border:1.5px solid #e1c56a; }
+.container .wizard,.container .side,.container .stepper { box-shadow:0 8px 27px rgba(41,70,96,.055); }
+.footer { position:relative; margin-top:48px; padding:60px 24px 22px; background:#15191c; color:#fff; }
+.footer-accent { height:4px; position:absolute; left:0; right:0; top:0; background:linear-gradient(90deg,#ffd200 0%,#ffd200 25%,#b7d4e5 25%,#b7d4e5 100%); }
+.footer-grid { max-width:1190px; grid-template-columns:1.4fr .8fr 1fr; gap:65px; }
+.footer-brand { display:flex; align-items:center; gap:14px; font-size:17px; font-weight:800; }
+.footer-about > p { max-width:370px; margin:20px 0 25px; color:#b7c1ca; line-height:1.75; }
+.footer h3 { color:#fff; font-size:14px; letter-spacing:.3px; margin-bottom:20px; }
+.footer-social-title { color:#e8eff3; font-size:12px; font-weight:800; margin-bottom:11px; }
+.footer-socials { display:flex; flex-wrap:wrap; gap:10px; }
+.footer .social { display:inline-flex; justify-content:center; align-items:center; gap:10px; width:auto; height:44px; padding:0 16px; margin:0; border:1px solid #596773; border-radius:9px; background:#263039; color:#f6f8fa; font-size:12px; font-weight:750; line-height:1; text-decoration:none; }
+.footer .social svg { width:20px; height:20px; flex:none; }
+.footer .social:hover { color:#111; background:#ffd200; border-color:#ffd200; transform:translateY(-2px); }
+.footer-col a { color:#b7c1ca; margin:0 0 12px; text-decoration:none; }
+.footer-contact a,.footer-contact p { display:flex; gap:13px; align-items:flex-start; margin:0 0 15px; color:#b7c1ca; text-decoration:none; line-height:1.6; }
+.footer-contact-icon { color:#ffd200; font-size:20px; width:24px; line-height:1.2; flex:none; }
+.footer-base { max-width:1190px; margin-top:38px; border-color:#33404a; padding-top:20px; color:#9facb8; font-size:11px; }
+@media(max-width:900px) { .footer-grid { gap:30px; grid-template-columns:1fr 1fr; } .footer-about { grid-column:1/-1; } }
+@media(max-width:600px) { .footer { padding:48px 20px 24px; } .footer-grid { grid-template-columns:1fr; gap:35px; } .footer-about { grid-column:auto; } .footer-base { flex-direction:column; gap:7px; } .footer-socials { gap:9px; } }
