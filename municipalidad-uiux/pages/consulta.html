@@ -10,52 +10,43 @@
 <body>
 
 <header class="header">
-    <div class="head-inner">
-        <a class="brand" href="#inicio">
-            <span class="crest">🏛️</span>
-            <span class="brand-rule"></span>
-            <span>Municipalidad<br>de Liberia</span>
-        </a>
-
-        <button class="menu" id="menu" type="button"
-                aria-label="Abrir menú" aria-expanded="false">☰</button>
-
-        <nav id="nav">
-            <a href="#inicio">Inicio</a>
-            <a class="selected" href="#formulario">Servicios</a>
-            <a href="#encuesta">Encuestas</a>
-            <a href="#contacto">Contacto</a>
-            <a class="nav-cta" href="#formulario">Trámites en línea ↗</a>
-        </nav>
-    </div>
+  <div class="head-inner">
+    <a class="brand" href="index.html" aria-label="Ir al inicio de la Municipalidad de Liberia">
+      <img class="municipal-logo" src="../assets/img/logo-municipalidad.jpg" alt="Escudo de la Municipalidad de Liberia">
+      <span>Municipalidad de Liberia</span>
+    </a>
+    <button class="menu" id="menu" type="button" aria-label="Abrir menú" aria-expanded="false" aria-controls="nav">☰</button>
+    <nav id="nav" aria-label="Navegación principal">
+      <a href="index.html">Inicio</a>
+      <a href="servicios.html">Servicios y trámites</a>
+      <a class="selected" href="consulta.html" aria-current="page">Consultas</a>
+      <a href="index.html#municipalidad">Municipalidad</a>
+      <a href="index.html#canton">Nuestro cantón</a>
+      <a class="nav-cta" href="#contacto">Contacto</a>
+    </nav>
+  </div>
 </header>
 
 <main class="container" id="inicio">
 
+    <section class="hero" aria-labelledby="consulta-titulo">
+  <div class="hero-inner">
     <div class="crumbs">
-        <a href="#inicio">Inicio</a>
-        <span>›</span>
-        <span>Servicios y trámites</span>
-        <span>›</span>
-        <strong>Consulta municipal</strong>
+      <a href="index.html">Inicio</a><span aria-hidden="true">›</span>
+      <a href="servicios.html">Servicios y trámites</a><span aria-hidden="true">›</span>
+      <strong>Consulta municipal</strong>
     </div>
-
-    <section class="hero">
-        <span class="eyebrow">Servicios municipales</span>
-        <h1>Realizá tu <span>consulta municipal</span></h1>
-        <p>
-            Resolvé tus dudas en cuatro etapas sencillas.
-            Leé la información, completá tus datos y revisá
-            la consulta antes de simular su envío.
-        </p>
-        <div class="photo-credit">
-            Fotografía de Liberia:
-            <a href="https://trivisioncr.com/noticias-guanacastecas/liberia-celebra-255-anos-de-su-fundacion-como-el-poblado-de-guanacaste/"
-               target="_blank" rel="noopener noreferrer">
-                Trivisión Costa Rica
-            </a>
-        </div>
-    </section>
+    <div class="hero-copy">
+      <span class="eyebrow">ATENCIÓN CIUDADANA · LIBERIA</span>
+      <h1 id="consulta-titulo">Realizá tu <span>consulta municipal</span></h1>
+      <p>Un espacio para resolver dudas y dar seguimiento a tus gestiones. Te guiamos paso a paso para que tu consulta sea clara y sencilla.</p>
+      <a class="hero-button" href="#formulario">Comenzar consulta <span aria-hidden="true">↘</span></a>
+      <span class="hero-caption">4 etapas · Sin filas · Prototipo académico</span>
+    </div>
+    <div class="photo-credit">Fotografía de Liberia: <a href="https://trivisioncr.com/noticias-guanacastecas/liberia-celebra-255-anos-de-su-fundacion-como-el-poblado-de-guanacaste/" target="_blank" rel="noopener noreferrer">Trivisión Costa Rica</a></div>
+    <div class="hero-locality">CIUDAD BLANCA <span>Liberia · Guanacaste</span></div>
+  </div>
+</section>
 
     <div class="layout" id="formulario">
         <div class="left">
@@ -369,8 +360,8 @@
     <div class="footer-grid">
         <div>
             <div class="brand">
-                <span class="crest">🏛️</span>
-                <span>Municipalidad<br>de Liberia</span>
+                <img class="municipal-logo" src="../assets/img/logo-municipalidad.jpg" alt="Escudo municipal">
+                <span>Municipalidad de Liberia</span>
             </div>
             <p>
                 Una experiencia digital más clara, accesible y cercana
