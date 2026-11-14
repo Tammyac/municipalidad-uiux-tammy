@@ -975,86 +975,6 @@ nav .selected {
 }
 
 /* ==========================================
-   FONDO FOTOGRÁFICO DE LIBERIA
-   ========================================== */
-
-.container {
-  position: relative;
-  isolation: isolate;
-  background: #f3f0e8;
-}
-
-.container::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -2;
-
-  background-image: url(
-    "https://trivisioncr.com/wp-content/uploads/2023/02/imagen_2023-02-07_143505013.png"
-  );
-
-  background-position: center top;
-  background-size: cover;
-  background-repeat: no-repeat;
-
-  /* Atenuar fotografía */
-  filter: saturate(0.60) brightness(0.79);
-}
-
-.container::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-
-  background: linear-gradient(
-    180deg,
-    rgba(245, 246, 248, 0.74),
-    rgba(245, 246, 248, 0.79) 52%,
-    rgba(245, 246, 248, 0.90)
-  );
-
-  pointer-events: none;
-}
-
-/* Tarjetas sobre la fotografía */
-
-.container .card {
-  background: rgba(255, 255, 255, 0.94);
-
-  backdrop-filter: blur(11px);
-  -webkit-backdrop-filter: blur(11px);
-
-  box-shadow: 0 16px 44px rgba(15, 25, 35, 0.13);
-}
-
-/* Mejorar lectura */
-
-.container .hero h1,
-.container .hero p,
-.container .crumbs {
-  text-shadow: 0 1px 12px rgba(255, 255, 255, 0.9);
-}
-
-/* Créditos */
-
-.photo-credit {
-  font-size: 11px;
-  color: #4f5c67;
-  margin-top: 14px;
-}
-
-.photo-credit a {
-  text-decoration: underline;
-  text-underline-offset: 3px;
-}
-
-.photo-credit a:hover {
-  color: #795d00;
-}
-
-/* ==========================================
    TABLETS
    ========================================== */
 
@@ -1215,4 +1135,108 @@ nav .selected {
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+}
+
+
+/* ==========================================
+   REDISEÑO VISUAL COHERENTE CON INICIO
+   ========================================== */
+:root { --gold:#ffd200; --bg:#f4f5f6; }
+body { background: var(--bg); }
+
+.header { background:#181818; border-bottom:3px solid var(--gold); }
+.head-inner { max-width:1190px; padding:14px 22px; min-height:87px; }
+.header .brand { gap:12px; color:#fff; font-size:16px; font-weight:800; white-space:nowrap; }
+.municipal-logo { width:54px; height:54px; border-radius:50%; object-fit:contain; background:#fff; border:2px solid #f7f7f7; }
+.header nav { gap:23px; font-size:13px; }
+.header nav .selected { color:var(--gold); }
+.header .nav-cta { color:#161616 !important; background:var(--gold); padding:15px 22px; font-weight:800; border-radius:11px; }
+.header .nav-cta:hover { background:#ffe05c; }
+
+.container { max-width:none; margin:0; padding:0 0 68px; background:transparent; isolation:auto; }
+.container::before, .container::after { content:none; }
+
+.hero {
+  position:relative; overflow:hidden; min-height:425px;
+  color:#fff; background-color:#233448;
+  background-image:linear-gradient(90deg,rgba(8,17,29,.89) 0%,rgba(8,17,29,.70) 43%,rgba(8,17,29,.25) 100%),
+    url("https://trivisioncr.com/wp-content/uploads/2023/02/imagen_2023-02-07_143505013.png");
+  background-position:center,center 42%; background-repeat:no-repeat; background-size:cover;
+}
+.hero-inner { position:relative; width:min(1190px,100%); min-height:425px; margin:auto; padding:26px 22px 54px; }
+.hero .crumbs { color:#e6eaf0; font-size:12px; margin:0 0 58px; }
+.hero .crumbs strong { color:#fff; }
+.hero-copy { max-width:710px; }
+.hero .eyebrow {
+  display:inline-block; padding:10px 14px; background:rgba(0,0,0,.38);
+  border-left:3px solid var(--gold); color:var(--gold); font-size:11px; letter-spacing:1.15px;
+}
+.hero h1 { font-size:clamp(34px,3.4vw,53px); line-height:1.12; letter-spacing:-1.5px; margin:22px 0 16px; max-width:730px; color:#fff; }
+.hero h1 span { color:var(--gold); }
+.hero p { font-size:15px; line-height:1.75; color:#f0f1f4; max-width:620px; margin:0 0 22px; }
+.hero-button {
+  display:inline-flex; gap:28px; align-items:center; padding:14px 22px;
+  background:var(--gold); color:#181818; border-radius:9px; font-size:13px; font-weight:800;
+  box-shadow:0 7px 22px rgba(0,0,0,.17); transition:transform .2s,background .2s;
+}
+.hero-button:hover { transform:translateY(-2px); background:#ffe268; }
+.hero-caption { margin-left:20px; color:#e9edf3; font-size:12px; }
+.photo-credit { position:absolute; bottom:17px; left:22px; color:#f1f1f1; font-size:10px; }
+.photo-credit a { text-decoration:underline; text-underline-offset:2px; }
+.hero-locality { position:absolute; right:0; bottom:0; padding:12px 20px; background:var(--gold); color:#111; font-size:10px; font-weight:900; letter-spacing:.8px; }
+.hero-locality span { margin-left:18px; font-weight:700; letter-spacing:0; }
+
+.container .layout { width:min(1190px,calc(100% - 44px)); margin: -30px auto 0; position:relative; z-index:2; }
+.container .survey { width:min(1190px,calc(100% - 44px)); margin:30px auto 0; }
+.stepper {
+  background:#fff; padding:17px 14px 12px; border:1px solid #e5e5e5; border-radius:14px 14px 0 0;
+  box-shadow:0 10px 25px rgba(0,0,0,.07); margin-bottom:0;
+}
+.step { font-size:12px; }
+.bubble { width:35px; height:35px; margin-bottom:7px; background:#eff0f2; }
+.step.active .bubble { background:var(--gold); box-shadow:none; transform:none; }
+.progress { height:4px; margin-bottom:14px; border-radius:0 0 12px 12px; }
+.card { border:1px solid #e3e5e8; border-radius:15px; box-shadow:0 12px 30px rgba(17,24,39,.07); }
+.panel { padding:27px 29px; }
+.note { background:#fff9e6; border:1px solid #f0df9a; border-left:4px solid var(--gold); }
+.mini { background:#fff; }
+.mini-icon { display:none; }
+.mini-grid { counter-reset:consulta-item; }
+.mini::before {
+  counter-increment:consulta-item; content:"0" counter(consulta-item);
+  color:#9b7c00; font-size:12px; letter-spacing:1px; font-weight:900;
+}
+.mini b { margin-top:8px; }
+.container .card { background:#fff; backdrop-filter:none; box-shadow:0 12px 30px rgba(17,24,39,.07); }
+.side { border-top:4px solid var(--gold); box-shadow:0 12px 28px rgba(17,24,39,.07); }
+.footer .brand { font-size:16px; }
+.footer .municipal-logo { width:45px; height:45px; }
+
+@media (max-width:1050px) {
+  .header nav { gap:13px; font-size:12px; }
+  .header .nav-cta { padding:12px 15px; }
+}
+@media (max-width:760px) {
+  .head-inner { min-height:72px; padding:11px 17px; }
+  .header .brand { font-size:14px; }
+  .municipal-logo { width:45px; height:45px; }
+  .header .menu { display:block; }
+  .header nav { display:none; position:absolute; top:100%; left:0; right:0; background:#181818; padding:15px 19px 23px; flex-direction:column; align-items:stretch; gap:0; box-shadow:0 15px 24px rgba(0,0,0,.2); }
+  .header nav.open { display:flex; }
+  .header nav a { padding:12px 8px; }
+  .header nav .nav-cta { margin-top:9px; text-align:center; }
+  .hero,.hero-inner { min-height:420px; }
+  .hero { background-position:center,64% center; background-image:linear-gradient(90deg,rgba(8,17,29,.88),rgba(8,17,29,.55)),url("https://trivisioncr.com/wp-content/uploads/2023/02/imagen_2023-02-07_143505013.png"); }
+  .hero-inner { padding:20px 19px 55px; }
+  .hero .crumbs { margin-bottom:43px; }
+  .hero h1 { letter-spacing:-1px; }
+  .hero p { font-size:14px; }
+  .hero-caption { display:block; margin:13px 0 0; }
+  .photo-credit { left:19px; }
+  .hero-locality { display:none; }
+  .container .layout { width:calc(100% - 26px); margin:-20px auto 0; }
+  .container .survey { width:calc(100% - 26px); }
+  .stepper { padding:15px 7px 11px; }
+  .step { font-size:10px; }
+  .panel { padding:22px 17px; }
 }
