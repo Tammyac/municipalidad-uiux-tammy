@@ -41,7 +41,7 @@
       <h1 id="consulta-titulo">Realizá tu <span>consulta municipal</span></h1>
       <p>Un espacio para resolver dudas y dar seguimiento a tus gestiones. Te guiamos paso a paso para que tu consulta sea clara y sencilla.</p>
       <a class="hero-button" href="#formulario">Comenzar consulta <span aria-hidden="true">↘</span></a>
-      <span class="hero-caption">4 etapas · Sin filas · Prototipo académico</span>
+      <span class="hero-caption">Orientación ciudadana · 4 pasos sencillos</span>
     </div>
     <div class="photo-credit">Fotografía de Liberia: <a href="https://trivisioncr.com/noticias-guanacastecas/liberia-celebra-255-anos-de-su-fundacion-como-el-poblado-de-guanacaste/" target="_blank" rel="noopener noreferrer">Trivisión Costa Rica</a></div>
     <div class="hero-locality">CIUDAD BLANCA <span>Liberia · Guanacaste</span></div>
@@ -113,11 +113,6 @@
                             </p>
                         </article>
                     </div>
-
-                    <p class="hint">
-                        Este es un prototipo académico:
-                        no realiza envíos a la Municipalidad.
-                    </p>
                 </section>
 
                 <!-- PASO 1: DATOS -->
@@ -195,7 +190,7 @@
                             <input type="file" id="archivo"
                                    accept=".pdf,.jpg,.jpeg,.png">
                             <p class="hint" id="archivoInfo">
-                                PDF, JPG o PNG. Máximo ilustrativo: 5 MB.
+                                PDF, JPG o PNG. Tamaño máximo: 5 MB.
                             </p>
                         </div>
                     </div>
@@ -339,44 +334,45 @@
 
 <!-- FOOTER -->
 <footer class="footer" id="footer">
+    <div class="footer-accent" aria-hidden="true"></div>
     <div class="footer-grid">
-        <div>
-            <div class="brand">
+        <div class="footer-about">
+            <div class="brand footer-brand">
                 <img class="municipal-logo" src="../assets/img/logo-municipalidad.jpg" alt="Escudo municipal">
                 <span>Municipalidad de Liberia</span>
             </div>
-            <p>
-                Una experiencia digital más clara, accesible y cercana
-                para los ciudadanos de Liberia.
-            </p>
-            <a class="social" href="https://www.facebook.com/"
-               aria-label="Facebook">f</a>
-            <a class="social" href="https://www.instagram.com/"
-               aria-label="Instagram">◎</a>
+            <p>Información, servicios y atención ciudadana en un espacio más claro y cercano para Liberia.</p>
+            <div class="footer-social-title">Conectá con nosotros</div>
+            <div class="footer-socials">
+                <a class="social social-facebook" href="https://www.facebook.com/Municipalidad-de-Liberia-Oficial-1413777415612403"
+                   target="_blank" rel="noopener noreferrer" aria-label="Facebook de la Municipalidad de Liberia">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.78-3.89 1.1 0 2.25.2 2.25.2v2.47H15.2c-1.25 0-1.64.78-1.64 1.57V12h2.8l-.45 2.89h-2.35v6.99A10 10 0 0 0 22 12Z"/></svg>
+                    <span>Facebook</span>
+                </a>
+                <a class="social social-instagram" href="https://www.instagram.com/"
+                   target="_blank" rel="noopener noreferrer" aria-label="Abrir Instagram">
+                    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="2.5" width="19" height="19" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.7" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+                    <span>Instagram</span>
+                </a>
+            </div>
         </div>
-
         <div class="footer-col">
             <h3>Explorá</h3>
-            <a href="#inicio">Inicio</a>
+            <a href="index.html">Inicio</a>
+            <a href="servicios.html">Servicios y trámites</a>
             <a href="#formulario">Consulta municipal</a>
             <a href="#encuesta">Encuesta de satisfacción</a>
-            <a href="#formulario">Servicios y trámites</a>
         </div>
-
-        <div id="contacto">
-            <h3>Información municipal</h3>
-            <p>
-                ☎ 2666-0169<br>
-                ◷ Lunes a viernes, 8 a. m. a 4 p. m.<br>
-                ⌖ Liberia, Guanacaste, Costa Rica
-            </p>
-            <p>Datos ilustrativos sujetos a comprobación.</p>
+        <div class="footer-contact" id="contacto">
+            <h3>Estamos para ayudarte</h3>
+            <a href="tel:+50626660169"><span class="footer-contact-icon">☎</span><span>2666-0169</span></a>
+            <p><span class="footer-contact-icon">◷</span><span>Lunes a viernes<br>8:00 a. m. – 4:00 p. m.</span></p>
+            <p><span class="footer-contact-icon">⌖</span><span>Liberia, Guanacaste<br>Costa Rica</span></p>
         </div>
     </div>
-
     <div class="footer-base">
-        <span>© 2026 Municipalidad de Liberia · Diseño académico no oficial</span>
-        <span>Proyecto UI/UX · Universidad Nacional</span>
+        <span>© 2026 Municipalidad de Liberia</span>
+        <span>Diseño UI/UX universitario · Sitio de demostración no oficial</span>
     </div>
 </footer>
 
@@ -388,7 +384,7 @@
     <div class="chat-top">
         <div>
             <b>Asistente de ayuda</b>
-            <div class="chat-subtitle">Simulación académica</div>
+            <div class="chat-subtitle">Orientación rápida</div>
         </div>
         <button type="button" id="chatClose" aria-label="Cerrar chat">×</button>
     </div>
