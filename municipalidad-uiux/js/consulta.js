@@ -183,7 +183,7 @@
 
       get("counter").textContent = "0";
       get("archivoInfo").textContent =
-        "PDF, JPG o PNG. Máximo ilustrativo: 5 MB.";
+        "PDF, JPG o PNG. Tamaño máximo: 5 MB.";
       get("archivoInfo").style.color = "";
 
       get("form").hidden = false;
@@ -219,7 +219,7 @@
       const info = get("archivoInfo");
 
       if (!file) {
-        info.textContent = "PDF, JPG o PNG. Máximo ilustrativo: 5 MB.";
+        info.textContent = "PDF, JPG o PNG. Tamaño máximo: 5 MB.";
         return;
       }
 
