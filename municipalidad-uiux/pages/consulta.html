@@ -53,16 +53,16 @@
 
             <div class="stepper" id="stepper" aria-label="Etapas del formulario">
                 <div class="step active">
-                    <span class="bubble">0</span>Información
+                    <span class="bubble">1</span>Información
                 </div>
                 <div class="step">
-                    <span class="bubble">1</span>Tus datos
+                    <span class="bubble">2</span>Tus datos
                 </div>
                 <div class="step">
-                    <span class="bubble">2</span>Consulta
+                    <span class="bubble">3</span>Consulta
                 </div>
                 <div class="step">
-                    <span class="bubble">3</span>Confirmar
+                    <span class="bubble">4</span>Confirmar
                 </div>
             </div>
 
@@ -87,9 +87,9 @@
 
                     <div class="mini-grid">
                         <article class="mini">
-                            <span class="mini-icon">🪪</span>
+                            <span class="mini-icon">✉</span>
                             <b>Ingresá tus datos</b>
-                            <p>Tu identificación y un medio de contacto.</p>
+                            <p>Solo tu nombre y un medio de contacto.</p>
                         </article>
 
                         <article class="mini">
@@ -126,24 +126,6 @@
 
                     <div class="fields">
 
-                        <div class="field">
-                            <label for="tipo">Tipo de identificación</label>
-                            <select id="tipo">
-                                <option>Cédula física</option>
-                                <option>Residencia</option>
-                                <option>Pasaporte</option>
-                            </select>
-                        </div>
-
-                        <div class="field">
-                            <label for="cedula">
-                                Número de identificación <span class="required">*</span>
-                            </label>
-                            <input id="cedula" type="text" autocomplete="off"
-                                   placeholder="Tu número de identificación">
-                            <div class="error">Ingresá tu identificación.</div>
-                        </div>
-
                         <div class="field wide">
                             <label for="nombre">
                                 Nombre completo <span class="required">*</span>
@@ -171,7 +153,7 @@
                     </div>
 
                     <p class="hint">
-                        * Campos obligatorios propuestos para la demostración.
+                        <span class="required">*</span> Campos sugeridos. Podés continuar sin completarlos en esta demostración.
                     </p>
                 </section>
 
